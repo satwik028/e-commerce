@@ -41,7 +41,7 @@ const LandingPage = () => {
     const fetchMemberCollection = async () => {
         setLoadingProducts(true);
         try {
-            const url = 'https://e-commerce-2e5z.onrender.com/api/products';
+            const url = `${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/products`;
             const response = await axios.get(url);
             if (response.data && response.data.products) {
                 setProducts(response.data.products.slice(0, 9));

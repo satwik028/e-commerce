@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import {
   FaBars, FaTimes, FaChevronDown, FaChevronUp,
   FaRegUser, FaRegHeart, FaShoppingBag, FaSearch
@@ -207,6 +208,14 @@ function LandingPage() {
   const [expanded, setExpanded] = useState(""); // "MEN" | "WOMEN" | "KIDS"
   const [kidsSub, setKidsSub] = useState(""); // "Boys" | "Girls"
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   // Handles click for MEN and WOMEN subcategories
   const handleSubClick = (category, subcat) => {
@@ -239,11 +248,14 @@ function LandingPage() {
         </div>
         <div className="navbar-right">
           <div className="search-container">
-            <FaSearch className="search-icon" />
+            <FaSearch className="search-icon" onClick={() => searchQuery.trim() && navigate(`/search?q=${encodeURIComponent(searchQuery)}`)} style={{ cursor: 'pointer' }} />
             <input
               type="text"
               className="search-input"
               placeholder="Search for products, brands and more"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
             />
           </div>
           {user ? (

@@ -104,7 +104,7 @@ const ProfilePage = () => {
         try {
             setLoadingOrders(true);
             const config = { headers: { Authorization: `Bearer ${user.token}` } };
-            const { data } = await axios.get('https://e-commerce-2e5z.onrender.com/api/orders', config);
+            const { data } = await axios.get(`${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/orders`, config);
             setOrders(data);
             setLoadingOrders(false);
         } catch (err) {
@@ -147,7 +147,7 @@ const ProfilePage = () => {
             };
 
             await axios.put(
-                'https://e-commerce-2e5z.onrender.com/api/auth/profile',
+                `${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/auth/profile`,
                 { name, email, phone, address },
                 config
             );
@@ -174,7 +174,7 @@ const ProfilePage = () => {
             setTwoFactorEnabled(newValue);
 
             await axios.put(
-                'https://e-commerce-2e5z.onrender.com/api/auth/profile',
+                `${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/auth/profile`,
                 { twoFactorEnabled: newValue },
                 config
             );

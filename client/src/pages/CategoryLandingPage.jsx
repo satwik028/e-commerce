@@ -31,7 +31,7 @@ const CategoryLandingPage = ({ category, initialSubcategories }) => {
             setLoading(true);
             try {
                 // Fetch products for category and active subcategory
-                const { data } = await axios.get(`https://e-commerce-2e5z.onrender.com/api/products?category=${category}&subcategory=${activeSubcategory}`);
+                const { data } = await axios.get(`${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/products?category=${category}&subcategory=${activeSubcategory}`);
 
                 if (data.products && data.products.length > 0) {
                     setProducts(data.products);

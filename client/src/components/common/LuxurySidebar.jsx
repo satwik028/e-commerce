@@ -10,7 +10,7 @@ import { FaUser, FaHeart, FaShoppingBag } from 'react-icons/fa';
 
 const LuxurySidebar = () => {
     const navigate = useNavigate();
-    const { isSidebarOpen, toggleSidebar } = useGlobal();
+    const { isSidebarOpen, toggleSidebar, toggleCart } = useGlobal();
     const { user } = useContext(AuthContext);
 
     const onClose = () => toggleSidebar(false);
@@ -28,7 +28,7 @@ const LuxurySidebar = () => {
                 <button className="luxury-close" onClick={onClose}>&times;</button>
 
                 {/* Women */}
-                <div className="luxury-menu-item" onClick={() => handleNavigate('/sarees')}>
+                <div className="luxury-menu-item" onClick={() => handleNavigate('/women')}>
                     <img src={womenImg} alt="Women" className="luxury-thumb" />
                     <div className="luxury-content">
                         <div className="luxury-category">WOMEN</div>
@@ -39,7 +39,7 @@ const LuxurySidebar = () => {
                 </div>
 
                 {/* Men */}
-                <div className="luxury-menu-item" onClick={() => handleNavigate('/sarees')}>
+                <div className="luxury-menu-item" onClick={() => handleNavigate('/men')}>
                     <img src={menImg} alt="Men" className="luxury-thumb" />
                     <div className="luxury-content">
                         <div className="luxury-category">MEN</div>
@@ -50,7 +50,7 @@ const LuxurySidebar = () => {
                 </div>
 
                 {/* Kids */}
-                <div className="luxury-menu-item" onClick={() => handleNavigate('/sarees')}>
+                <div className="luxury-menu-item" onClick={() => handleNavigate('/kids')}>
                     <img src={kidsImg} alt="Kids" className="luxury-thumb" />
                     <div className="luxury-content">
                         <div className="luxury-category">KIDS</div>
@@ -61,7 +61,7 @@ const LuxurySidebar = () => {
                 </div>
 
                 {/* Footer */}
-                <div className="luxury-footer">
+                <div className="luxury-footer" style={{ paddingBottom: '20px', marginTop: 'auto' }}>
                     <div className="luxury-footer-link" onClick={() => handleNavigate(user ? '/profile' : '/login')}>
                         <FaUser size={16} />
                         {user ? (user.firstName || user.name?.split(' ')[0] || "Account") : "Sign In"}
@@ -70,7 +70,7 @@ const LuxurySidebar = () => {
                         <FaHeart size={16} />
                         Wishlist
                     </div>
-                    <div className="luxury-footer-link" onClick={() => handleNavigate('/cart')}>
+                    <div className="luxury-footer-link" onClick={() => { onClose(); toggleCart(true); }}>
                         <FaShoppingBag size={16} />
                         Bag
                     </div>

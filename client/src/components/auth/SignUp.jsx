@@ -56,11 +56,11 @@ const SignUp = () => {
 
   // Social Login Handlers
   const handleGoogleLogin = () => {
-    window.location.href = 'https://e-commerce-2e5z.onrender.com/api/auth/google';
+    window.location.href = `${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/auth/google`;
   };
 
   const handleFacebookLogin = () => {
-    window.location.href = 'https://e-commerce-2e5z.onrender.com/api/auth/facebook';
+    window.location.href = `${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/auth/facebook`;
   };
 
   return (

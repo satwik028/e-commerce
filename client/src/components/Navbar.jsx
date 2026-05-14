@@ -1,15 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FaRegUser, FaRegHeart, FaShoppingBag, FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/GlobalContext";
 import { AuthContext } from "../context/AuthContext";
 import "./Navbar.css";
 
-
-
 export default function Navbar() {
     const { getCartCount, getWishlistCount, toggleSidebar, toggleCart } = useGlobal();
     const { user } = useContext(AuthContext);
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        if (e.key === 'Enter' && searchQuery.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+        }
+    };
 
     const cartCount = getCartCount();
     const wishlistCount = getWishlistCount();
@@ -60,11 +66,14 @@ export default function Navbar() {
             </nav>
             <div className="navbar-right">
                 <div className="search-container">
-                    <FaSearch className="search-icon" />
+                    <FaSearch className="search-icon" onClick={() => searchQuery.trim() && navigate(`/search?q=${encodeURIComponent(searchQuery)}`)} style={{ cursor: 'pointer' }} />
                     <input
                         type="text"
                         className="search-input"
                         placeholder="Search for products, brands and more"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={handleSearch}
                     />
                 </div>
                 <Link to={user ? "/profile" : "/login"} className="icon-box">

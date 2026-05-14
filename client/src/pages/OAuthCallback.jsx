@@ -20,7 +20,7 @@ const OAuthCallback = () => {
 
       try {
         const { data } = await axios.post(
-          'https://e-commerce-2e5z.onrender.com/api/auth/oauth/exchange',
+          `${process.env.REACT_APP_API_URL || 'https://e-commerce-2e5z.onrender.com/api'}/auth/oauth/exchange`,
           { code }
         );
 
